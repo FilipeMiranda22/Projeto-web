@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Aplicação Med</title>
+</head>
+<body>
+	<header>
+		<h1>MED-IF</h1>
+	</header>
+	
+	<div>
+		<a href="/registrar">Adicionar Medico</a>
+	</div>
+	
+	<div id="content">
+		<div th:switch="${medicos}">
+			<div th:case="null">Nenhum medico cadastrado
+			</div>
+			
+			<div th:case="*">
+				<h2>Medicos</h2>
+			</div>
+		</div>
+		<table>
+		</table>
+	</div>
+	
+	<footer>
+	</footer>
+		
+</body>
+</html>

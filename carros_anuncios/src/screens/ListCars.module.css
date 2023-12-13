@@ -1,0 +1,14 @@
+.container_cars {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.cars_header {
+  display: flex;
+  padding: 2rem;
+  text-align: left;
+  justify-content: space-between; /* Para alinhar o título à esquerda e o link à direita */
+  align-items: center; /* Para alinhar verticalmente o link */
+}

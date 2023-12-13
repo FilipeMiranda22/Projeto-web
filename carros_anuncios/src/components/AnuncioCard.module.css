@@ -1,0 +1,14 @@
+.anuncio_card {
+  width: 20%;
+  padding: 1rem;
+  background-color: rgba(124, 124, 124, 0.76);
+  border-radius: 5px;
+  color: white;
+  box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.466);
+  text-align: left;
+}
+
+.anuncio_card img {
+  width: 100%;
+  height: 250px;
+}

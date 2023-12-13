@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Aplicação Med</title>
+</head>
+<body>
+	<header>
+		<h1>MED-IF</h1>
+	</header>
+	
+	<div id="content">
+		<form action="/cadastrar" 
+			  th:object="${medico}" 
+			  method="post"
+			  enctype="application/json">
+			<label>Nome:</label>
+    		<input type="text" th:field="*{nome}" id="name" placeholder="Name">
+    		
+			<label>Email:</label>
+    		<input type="email" th:field="*{email}" id="email" placeholder="Email">
+		
+			<label>Telefone:</label>
+    		<input type="text" th:field="*{telefone}" id="telefone" placeholder="Telefone">
+		
+			<label>Crm</label>
+    		<input type="text" th:field="*{crm}" id="crm" placeholder="CRM">
+			
+			
+			<select name="tipo">
+			    <option th:each="especialidade : ${especialidades}" th:value="${especialidade}" th:text="${especialidade}"></option>
+			</select>
+
+
+			<label>Logradouro</label>
+    		<input type="text" th:field="*{endereco.logradouro}" id="logradouro" placeholder="Logradouro">
+			
+			
+			<label>Bairro</label>
+    		<input type="text" th:field="*{endereco.bairro}" id="bairro" placeholder="Bairro">
+			
+			<label>Cep</label>
+    		<input type="text" th:field="*{endereco.cep}" id="cep" placeholder="cep">
+			
+			<label>Cidade</label>
+    		<input type="text" th:field="*{endereco.cidade}" id="cidade" placeholder="cidade">
+    		
+    		<label>UF</label>
+    		<input type="text" th:field="*{endereco.uf}" id="uf" placeholder="UF">
+			
+			
+			
+			
+			
+			<label>Crm</label>
+    		<input type="text" th:field="*{crm}" id="crm" placeholder="CRM">
+			
+			
+			<div >
+            	<button type="submit">Cadastrar</button>
+        	</div>
+		
+		</form>
+	</div>
+	
+	<footer>
+	</footer>
+		
+</body>
+</html>
