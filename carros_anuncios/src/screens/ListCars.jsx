@@ -40,7 +40,9 @@ const ListCars = () => {
   return (
     <>
       <div className={styles.cars_header}>
-        <h1>Meus Carros:</h1>
+        <h1>
+          Meus Carros: {cars.length > 0 && "( " + cars[0].usuario.nome + " )"}
+        </h1>
         <Link to="/register/car" className="btn">
           Add Carro
         </Link>

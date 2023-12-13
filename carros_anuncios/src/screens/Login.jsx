@@ -12,9 +12,8 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const successLogin = await login({ email, password });
-    console.log("SUCESSO", successLogin);
     if (successLogin) {
-      navigate("/");
+      navigate("/cars");
       return;
     }
     alert("Dados de login incorretos, tente novamente");

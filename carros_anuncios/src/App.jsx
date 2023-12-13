@@ -6,15 +6,16 @@ import Home from "./screens/Home";
 import Register from "./screens/Register";
 import Login from "./screens/Login";
 import Cars from "./screens/Cars";
-import { useAuthValue } from "./context/AuthContext";
+import {
+  RequireAuth,
+  RequireNoAuth,
+  useAuthValue,
+} from "./context/AuthContext";
 import ListCars from "./screens/ListCars";
 import RegisterAnuncio from "./screens/RegisterAnuncio";
 import UpdateCar from "./screens/UpdateCar";
 
 function App() {
-  const { getUser } = useAuthValue();
-  const [user] = useState(getUser());
-
   return (
     <div className="App">
       <BrowserRouter>
@@ -24,27 +25,51 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route
               path="/register"
-              element={!user ? <Register /> : <Navigate to="/" />}
+              element={
+                <RequireNoAuth>
+                  <Register />
+                </RequireNoAuth>
+              }
             />
             <Route
               path="/login"
-              element={!user ? <Login /> : <Navigate to="/" />}
+              element={
+                <RequireNoAuth>
+                  <Login />
+                </RequireNoAuth>
+              }
             />
             <Route
               path="/cars"
-              element={user ? <ListCars /> : <Navigate to="/login" />}
+              element={
+                <RequireAuth value="/login">
+                  <ListCars />
+                </RequireAuth>
+              }
             />
             <Route
               path="/register/car"
-              element={user ? <Cars /> : <Navigate to="/login" />}
+              element={
+                <RequireAuth value="/login">
+                  <Cars />
+                </RequireAuth>
+              }
             />
             <Route
               path="/register/anuncio/:id"
-              element={user ? <RegisterAnuncio /> : <Navigate to="/login" />}
+              element={
+                <RequireAuth value="/login">
+                  <RegisterAnuncio />
+                </RequireAuth>
+              }
             />
             <Route
               path="/car/editar/:id"
-              element={user ? <UpdateCar /> : <Navigate to="/login" />}
+              element={
+                <RequireAuth value="/login">
+                  <UpdateCar />
+                </RequireAuth>
+              }
             />
           </Routes>
         </div>

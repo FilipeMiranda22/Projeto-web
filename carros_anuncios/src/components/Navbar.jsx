@@ -3,17 +3,18 @@ import { useAuthValue } from "../context/AuthContext";
 import styles from "./Navbar.module.css";
 import { NavLink, useNavigate } from "react-router-dom";
 const Navbar = () => {
-  const { logout, getUser } = useAuthValue();
+  const { logout, user: userContext } = useAuthValue();
   const [user, setUser] = useState();
   const navigate = useNavigate();
 
   useEffect(() => {
-    setUser(getUser());
-  }, [user]);
+    setUser(userContext);
+  }, [userContext]);
 
   const handleLogout = () => {
     setUser(false);
     logout();
+    navigate("/");
   };
 
   return (

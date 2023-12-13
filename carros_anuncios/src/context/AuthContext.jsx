@@ -7,7 +7,11 @@ const api = "http://localhost:8080/auth/login";
 const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
-  const [isLoggedOut, setIsLoggedOut] = useState(false);
+  const getUser = () => {
+    return localStorage.getItem("user");
+  };
+
+  const [user, setUser] = useState(getUser());
 
   const login = async (data) => {
     console.log(data.email);
@@ -24,12 +28,10 @@ export function AuthProvider({ children }) {
       });
 
       if (response.ok) {
-        console.log(response);
         const userData = await response.json();
-        console.log(userData);
+        setUser(userData);
         localStorage.setItem("user", JSON.stringify(userData));
         if (userData && userData.email) {
-          console.log(userData.email);
           return true;
         } else {
           return false;
@@ -41,21 +43,15 @@ export function AuthProvider({ children }) {
     }
   };
 
-  // Get the authentication token
-  const getUser = () => {
-    return localStorage.getItem("user");
-  };
-
   // Sign out a user
   const logout = () => {
     localStorage.removeItem("user");
-    setIsLoggedOut(true); // Atualiza o estado para true após o logout
+    setUser(null);
   };
 
   return (
-    <AuthContext.Provider value={{ login, getUser, logout }}>
-      {isLoggedOut ? <Navigate to="/" /> : children}{" "}
-      {/* Força a renderização após o logout */}
+    <AuthContext.Provider value={{ login, getUser, logout, user }}>
+      {children}
     </AuthContext.Provider>
   );
 }
@@ -63,3 +59,24 @@ export function AuthProvider({ children }) {
 export function useAuthValue() {
   return useContext(AuthContext);
 }
+
+export const RequireAuth = ({ children, value }) => {
+  const auth = useAuthValue();
+
+  // TODO ─ Realizar uma requisição de verdade para o back para saber se o usuário está autenticado
+  if (!auth.getUser()) {
+    return <Navigate to={value} />;
+  }
+
+  return children;
+};
+
+export const RequireNoAuth = ({ children }) => {
+  const auth = useAuthValue();
+
+  if (auth.getUser()) {
+    return <Navigate to="/cars" />;
+  }
+
+  return children;
+};
